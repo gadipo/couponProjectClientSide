@@ -1,0 +1,28 @@
+<div>
+    <h2>Update a Customer - {{customer.firstName}} {{customer.lastName}}</h2>
+    <form [formGroup]="updateCustomerForm" >
+        <mat-form-field appearance ="outline">
+            <mat-label>First Name</mat-label>
+            <input type="text" matInput formControlName="firstName" required>
+            <mat-error>First Name is required !</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance ="outline">
+            <mat-label>Last Name</mat-label>
+            <input type="text" matInput formControlName="lastName" required>
+            <mat-error>Last Name is required !</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance ="outline">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email" required>
+            <mat-error *ngIf="updateCustomerForm.controls['email'].errors?.required">Email is required !</mat-error>
+            <mat-error *ngIf="updateCustomerForm.controls['email'].errors?.email">Email is not legit !</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="text" matInput formControlName="password" required>
+            <mat-error>Password is required !</mat-error>
+        </mat-form-field><br>
+        <button mat-raised-button [disabled]="!updateCustomerForm.valid" (click)="updateCustomer()">Update !</button>
+        <br><br>
+    </form>
+</div>

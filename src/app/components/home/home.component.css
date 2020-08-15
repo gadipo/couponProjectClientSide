@@ -1,0 +1,26 @@
+video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .content {
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .header{
+    position: fixed;
+    color: white;
+    font-size: 30px;
+    font-weight: bolder;
+    left: 50%;
+    top: 30%;
+    transform: translateX(-50%)
+  }

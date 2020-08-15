@@ -1,0 +1,13 @@
+table, th, td {
+    border: black double 3px;
+    text-align: center;
+    padding: 5px;
+  }
+  
+  button {
+    margin: 10px;
+  }
+
+  mat-form-field{
+    margin: 20px;
+  }

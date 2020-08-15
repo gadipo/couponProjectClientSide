@@ -1,0 +1,131 @@
+<div class="grid-container">
+    <mat-tab-group >
+    <mat-tab label="Companies">
+        <!-- <form action="POST" [formGroup]="searchCompanyForm"> -->
+            <form action="POST">
+            <button mat-raised-button (click)="searchCompanies()">Search</button>
+            <!-- <button mat-raised-button *ngIf="searchCompanyForm.controls['email'].value!=''" (click)="searchOneCompany()">Search One</button> -->
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <!-- <input type="text" matInput formControlName="email"> -->
+                <input type="text" matInput [(ngModel)]="companyEmail" [ngModelOptions]="{standalone: true}">
+                <mat-error>Email not legit</mat-error>
+            </mat-form-field>
+        </form><br>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+        </tr>
+        <tr *ngFor="let c of companies">
+            <td>{{c.name}}</td>
+            <td>
+                <!-- <input type="text" *ngIf="c.editable" [(ngModel)]="c.email "> -->
+                <span>{{c.email}}</span>
+            </td>
+            <td>
+                <!-- <input type="text" *ngIf="c.editable" [(ngModel)]="c.password "> -->
+                <span>{{c.password}}</span>
+            </td>
+            <button mat-raised-button *ngIf="!c.editable" (click)="editCompany(c)">Edit</button>
+            <!-- <button mat-raised-button *ngIf="c.editable" (click)="updateCompany(c)">Update</button> -->
+            <button mat-raised-button (click)="deleteCompany(c)">
+                <mat-icon>delete_outline</mat-icon>
+            </button>
+        </tr>
+    </table><br>
+</mat-tab>
+<mat-tab label="Customers">
+    <form action="POST" [formGroup]="searchCustomerForm">
+        <button mat-raised-button (click)="searchCustomers()">Search</button>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email">
+            <mat-error>Email not legit</mat-error>
+        </mat-form-field>
+    </form><br>
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Password</th>
+        </tr>
+        <tr *ngFor="let c of customers">
+            <td>
+                <!-- <input type="text" *ngIf="c.editable" [(ngModel)]="c.firstName "> -->
+                <span>{{c.firstName}}</span>
+            </td>
+                <td>
+                    <!-- <input type="text" *ngIf="c.editable" [(ngModel)]="c.lastName "> -->
+                    <span>{{c.lastName}}</span>
+                </td>
+            <td>
+                <!-- <input type="text" *ngIf="c.editable" [(ngModel)]="c.email "> -->
+                <span>{{c.email}}</span>
+            </td>
+            <td>
+                <!-- <input type="text" *ngIf="c.editable" [(ngModel)]="c.password "> -->
+                <span>{{c.password}}</span>
+            </td>
+            <button mat-raised-button *ngIf="!c.editable" (click)="editCustomer(c)">Edit</button>
+            <!-- <button mat-raised-button *ngIf="c.editable" (click)="updateCustomer(c)">Update</button> -->
+            <button mat-raised-button (click)="deleteCustomer(c)">
+                <mat-icon>delete_outline</mat-icon>
+            </button>
+        </tr>
+    </table><br>
+</mat-tab>
+</mat-tab-group>
+<div class="add">
+    <h2>Add a Company</h2>
+    <form [formGroup]="addCompanyForm"  >
+        <mat-form-field appearance ="outline">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput formControlName="name" required>
+            <mat-error>Name is required !</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance ="outline">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email" required>
+            <mat-error *ngIf="addCompanyForm.controls['email'].errors?.required">Email is required !</mat-error>
+            <mat-error *ngIf="addCompanyForm.controls['email'].errors?.email">Email is not legit !</mat-error>
+        </mat-form-field><br>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="text" matInput formControlName="password" required>
+            <mat-error>Password is required !</mat-error>
+        </mat-form-field><br>
+        <button mat-raised-button type="submit" [disabled]="!addCompanyForm.valid" (click)="addCompany()">Add Company</button>
+        <br><br>
+    </form>
+    <h2>Add a Customer</h2>
+    <form [formGroup]="addCustomerForm" >
+        <mat-form-field appearance ="outline">
+            <mat-label>First Name</mat-label>
+            <input type="text" matInput formControlName="firstName" required>
+            <mat-error>First Name is required !</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance ="outline">
+            <mat-label>Last Name</mat-label>
+            <input type="text" matInput formControlName="lastName" required>
+            <mat-error>Last Name is required !</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance ="outline">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email" required>
+            <mat-error *ngIf="addCustomerForm.controls['email'].errors?.required">Email is required !</mat-error>
+            <mat-error *ngIf="addCustomerForm.controls['email'].errors?.email">Email is not legit !</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="text" matInput formControlName="password" required>
+            <mat-error>Password is required !</mat-error>
+        </mat-form-field><br>
+        <!-- <span>{{addCustomerMessage}}</span><br> -->
+        <button mat-raised-button [disabled]="!addCustomerForm.valid" (click)="addCustomer()">Add Customer</button>
+        <br><br>
+    </form>
+</div>
+</div>

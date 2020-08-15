@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Update a Coupon - <span>{{coupon.title}}</span></h2>
+<mat-dialog-content [formGroup]="updateCouponForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input type="text" matInput formControlName="title" required>
+        <mat-error>Title is required !</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input type="number" matInput formControlName="price" min="1" required>
+        <mat-error *ngIf="updateCouponForm.controls['price'].errors?.required">Price is required</mat-error>
+        <mat-error *ngIf="updateCouponForm.controls['price'].errors?.min">Price must be above 0</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input type="number" matInput formControlName="amount" min="1" required>
+        <mat-error *ngIf="updateCouponForm.controls['amount'].errors?.required">Amount is required</mat-error>
+        <mat-error *ngIf="updateCouponForm.controls['amount'].errors?.min">Amount must be above 0</mat-error>
+    </mat-form-field><br>
+    <mat-form-field appearance="outline">
+        <mat-label>Start Date</mat-label>
+        <input type="date" matInput formControlName="startDate" [min]="today" required>
+        <mat-error *ngIf="updateCouponForm.controls['startDate'].errors?.required">Start Date is required !</mat-error>
+        <mat-error *ngIf="updateCouponForm.controls['startDate'].errors?.pastError">start date cannot be in the past</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>End Date</mat-label>
+        <input type="date" matInput formControlName="endDate" [min]="updateCouponForm.controls['startDate'].value" required>
+        <mat-error>End Date is required !</mat-error>
+    </mat-form-field><br>
+    <mat-form-field appearance="outline" style="width: 500px;">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" required placeholder="describe it..."></textarea>
+        <mat-error>Description is required !</mat-error>
+    </mat-form-field><br>
+    <mat-form-field appearance="outline">
+        <mat-label>Image</mat-label>
+        <input type="text" matInput formControlName="image">
+    </mat-form-field>
+    <span>{{updateCouponMessage}}</span><br>
+    <br><br>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button type="submit" mat-raised-button [disabled]="!updateCouponForm.valid" (click)="updateCoupon()">Update
+        !</button>
+    <button mat-raised-button (click)="close()">Back</button>
+</mat-dialog-actions>

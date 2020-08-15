@@ -1,0 +1,28 @@
+<div>
+    <h1>Login</h1>
+    <form [formGroup]="loginForm" >
+        <mat-form-field appearance ="outline">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email" required>
+            <mat-error *ngIf="loginForm.controls['email'].errors?.required">Email is required !</mat-error>
+            <mat-error *ngIf="loginForm.controls['email'].errors?.email">Email is not legit !</mat-error>
+        </mat-form-field><br><br>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="text" matInput formControlName="password" required>
+            <mat-error>Password is required !</mat-error>
+        </mat-form-field><br><br>
+        <mat-form-field appearance="outline">
+            <mat-label>Who are you?</mat-label>
+            <!-- <mat-select [formControl]="clientSelect" formControlName="client" > -->
+                <mat-select matInput formControlName="client" >
+             <mat-option value="Administrator">Administrator</mat-option>
+            <mat-option value="Company">Company</mat-option>
+            <mat-option value="Customer">Customer</mat-option>
+            </mat-select>
+        </mat-form-field><br><br>
+        <span>{{errorMessage}}</span><br><br>
+        <button mat-raised-button [disabled]="!loginForm.valid" (click)="login()">Login</button>
+        <br><br>
+    </form>
+</div>

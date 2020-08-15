@@ -1,0 +1,111 @@
+<mat-tab-group>
+    <mat-tab label="Search Coupons">
+        <!-- Search Coupons -->
+        <form action="POST" [formGroup]="searchCouponForm">
+            <button mat-raised-button (click)="searchCoupons()">Search</button>
+            <mat-form-field>
+                <mat-label>Search By</mat-label>
+                <mat-select matInput formControlName="searchBy">
+                    <mat-option></mat-option>
+                    <mat-option value="category">Category</mat-option>
+                    <mat-option value="maxPrice">Max Price</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="searchCouponForm.controls['searchBy'].value == 'category'">
+                <mat-label>Category</mat-label>
+                <mat-select matInput formControlName="searchCat">
+                    <mat-option *ngFor="let cat of keys" [value]="cat">{{categoryList[cat]}}</mat-option>
+                </mat-select>
+                <mat-error>must select a category</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="searchCouponForm.controls['searchBy'].value == 'maxPrice'">
+                <mat-label>Max Price</mat-label>
+                <input type="number" matInput formControlName="searchMaxPrice" min="1">
+                <mat-error *ngIf="searchCouponForm.controls['searchMaxPrice'].errors?.required">Price is required</mat-error>
+                <mat-error *ngIf="searchCouponForm.controls['searchMaxPrice'].errors?.min">Price must be above 0</mat-error>
+            </mat-form-field>
+            <button mat-stroked-button (click)="openCompanyDetails()">Company Details</button>
+        </form><br>
+        <!-- Display Coupons -->
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Amount</th>
+                <th>Image</th>
+            </tr>
+            <tr *ngFor="let c of coupons">
+                <td><span>{{c.title}}</span></td>
+                <td><span>{{c.category}}</span></td>
+                <td><span>{{c.description}}</span></td>
+                <td><span>{{c.price}}</span></td>
+                <td><span>{{c.startDate}}</span></td>
+                <td><span>{{c.endDate}}</span></td>
+                <td><span>{{c.amount}}</span></td>
+                <td><img src={{c.image}} alt="wtf" height="20px" width="20px" (click)="openImage(c)"></td>
+                <button mat-raised-button (click)="editCoupon(c)">Edit</button>
+                <button mat-raised-button (click)="deleteCoupon(c)">
+                    <mat-icon>delete_outline</mat-icon>
+                </button>
+            </tr>
+        </table><br>
+    </mat-tab>
+    <mat-tab label="Add Coupons">
+        <!-- Add Coupon -->
+        <h2>Add a Coupon</h2>
+        <form [formGroup]="addCouponForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Title</mat-label>
+                <input type="text" matInput formControlName="title" required>
+                <mat-error>Title is required !</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select matInput formControlName="category">
+                    <mat-option *ngFor="let cat of keys" [value]="cat">{{categoryList[cat]}}</mat-option>
+                </mat-select>
+                <mat-error>Category is required !</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Price</mat-label>
+                <input type="number" matInput formControlName="price" min="1" required>
+                <mat-error *ngIf="addCouponForm.controls['price'].errors?.required">Price is required</mat-error>
+                <mat-error *ngIf="addCouponForm.controls['price'].errors?.min">Price must be above 0</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Amount</mat-label>
+                <input type="number" matInput formControlName="amount" min="1" required>
+                <mat-error *ngIf="addCouponForm.controls['amount'].errors?.required">Amount is required</mat-error>
+                <mat-error *ngIf="addCouponForm.controls['amount'].errors?.min">Amount must be above 0</mat-error>
+            </mat-form-field><br>
+            <mat-form-field appearance="outline">
+                <mat-label>Start Date</mat-label>
+                <input type="date" matInput formControlName="startDate" [min]="today.toJSON().split('T')[0]" required>
+                <mat-error *ngIf="addCouponForm.controls['startDate'].errors?.required">Start Date is required !</mat-error>
+                <mat-error *ngIf="addCouponForm.controls['startDate'].errors?.pastError">start date cannot be in the past</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>End Date</mat-label>
+                <input type="date" matInput formControlName="endDate" [min]="addCouponForm.controls['startDate'].value"
+                required>
+                <mat-error *ngIf="addCouponForm.controls['endDate'].errors?.required">End Date is required !</mat-error>
+                <mat-error *ngIf="addCouponForm.errors?.eDateError">End Date cannot be before startDate !</mat-error>
+            </mat-form-field><br>
+            <mat-form-field appearance="outline" style="width: 500px;">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" placeholder="describe it..." required></textarea>
+                <mat-error>Description is required !</mat-error>
+            </mat-form-field><br>
+            <mat-form-field appearance="outline">
+                <mat-label>Image</mat-label>
+                <input type="text" matInput formControlName="image">
+            </mat-form-field><br>
+            <button mat-raised-button [disabled]="!addCouponForm.valid" (click)="addCoupon()">Add Coupon</button>
+            <br><br>
+        </form>
+    </mat-tab>
+</mat-tab-group>

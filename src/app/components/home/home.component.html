@@ -1,0 +1,14 @@
+<video muted autoplay id="v1" *ngIf="videoPlaying==1" src="https://www.videvo.net/videvo_files/converted/2015_05/preview/FoodPack1_12_Videvo.mov93550.webm" (ended)="nextVideo()"></video>
+<script> document.getElementById('v1').play();  </script>
+<video muted autoplay *ngIf="videoPlaying==2" src="https://www.videvo.net/videvo_files/converted/2017_09/preview/170804_A_Lombok_032.mp470034.webm" (ended)="nextVideo()"></video>
+<video muted autoplay *ngIf="videoPlaying==3" src="https://cdn.videvo.net/videvo_files/video/free/2020-04/small_watermarked/200413_01_Cine_03_preview.webm" (ended)="nextVideo()"></video>
+
+<div class="header">
+Gad's Coupon Website
+</div>
+<div class="content">
+<p>
+    Get All your favourite deals on Rrestaurants, Vacations, Spa's, Electronics and Fashion
+</p>
+<button mat-raised-button (click)="openLoginDialog()">Login</button>
+</div>

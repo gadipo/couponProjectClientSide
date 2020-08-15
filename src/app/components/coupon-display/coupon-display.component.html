@@ -1,0 +1,14 @@
+<div>
+    <img [src]="coupon.image" alt="wtf" width="200px" height="200px" (click)="openImage()">
+    <span>Title: {{coupon.title}}</span>
+    <span>Category: {{coupon.category}}</span>
+    <span>Description: {{coupon.description}}</span>
+    <span>Company: {{coupon.company.name}}</span>
+    <span>Start Date: {{coupon.startDate}}</span>
+    <span>End Date: {{coupon.endDate}}</span>
+    <span>Amount: {{coupon.amount}}</span>
+    <span>Price: {{coupon.price}}</span>
+    Buy: <button mat-raised-button (click)="purchaseCoupon()">
+        <mat-icon>attach_money</mat-icon>
+    </button>
+</div>

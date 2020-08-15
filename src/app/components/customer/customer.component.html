@@ -1,0 +1,37 @@
+<!-- Search Coupons -->
+<form action="POST" [formGroup]="searchCouponForm" style="display: inline;">
+    <button mat-raised-button (click)="searchCoupons()">Search</button>
+    <mat-form-field>
+        <mat-label>Search By</mat-label>
+        <mat-select matInput formControlName="searchBy">
+            <mat-option></mat-option>
+            <mat-option value="category">Category</mat-option>
+            <mat-option value="maxPrice">Max Price</mat-option>
+            <mat-option value="myCoupons">My Coupons</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="searchCouponForm.controls['searchBy'].value == 'category'">
+        <mat-label>Category</mat-label>
+        <mat-select matInput formControlName="searchCat">
+            <mat-option *ngFor="let cat of keys" [value]="cat">{{categoryList[cat]}}</mat-option>
+        </mat-select>
+        <mat-error>must select a category</mat-error>
+    </mat-form-field>
+    <mat-form-field *ngIf="searchCouponForm.controls['searchBy'].value == 'maxPrice'">
+        <mat-label>Max Price</mat-label>
+        <input type="number" matInput formControlName="searchMaxPrice" min="1" required>
+        <mat-error *ngIf="searchCouponForm.controls['searchMaxPrice'].errors?.required">Price is required</mat-error>
+        <mat-error *ngIf="searchCouponForm.controls['searchMaxPrice'].errors?.min">Price must be above 0</mat-error>
+    </mat-form-field>
+</form>
+<!-- Dispaly Customer Details -->
+<button mat-stroked-button (click)="openCustomerDetails()">Customer Details</button>
+<!-- Display Coupons -->
+<div>
+    <div *ngIf="searchCouponForm.controls['searchBy'].value == ''||searchCouponForm.controls['searchBy'].value == null" class="gridDisplay">
+        <app-coupon-display *ngFor="let c of coupons" [coupon]="c"></app-coupon-display>
+    </div>
+    <div *ngIf="filteredCoupons.length>0 && searchCouponForm.controls['searchBy'].value != ''&&searchCouponForm.controls['searchBy'].value != null" class="gridDisplay">
+        <app-coupon-display *ngFor="let c of filteredCoupons" [coupon]="c"></app-coupon-display>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div>
+    <mat-toolbar color="primary">
+        Coupon Website
+       <span class="toolbar-fill"></span>
+       <!-- <mat-menu #companyMenu="matMenu">
+         <button mat-menu-item (click)="openUserDetails()">Company Details</button>
+         <button mat-menu-item (click)="logout()">Logout</button>
+       </mat-menu>
+       <mat-menu #customerMenu="matMenu">
+        <button mat-menu-item (click)="openUserDetails()">Customer Details</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu> -->
+      <!-- <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="openUserDetails()">View Details</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu> -->
+       <!-- <button mat-stroked-button *ngIf="loginService.loggedIn==true && loginService.userName!=undefined && loginService.userName!=null" [matMenuTriggerFor]="userMenu">Hello {{userName}}</button>
+      <div *ngIf="loginService.loggedIn==true">
+        <button mat-stroked-button *ngIf="(userName | async) as userName" [matMenuTriggerFor]="userMenu"> Hello {{userName}} </button>
+      </div> -->
+        <button *ngIf="loginService.loggedIn==true" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+      </mat-toolbar>
+</div>
